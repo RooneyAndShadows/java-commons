@@ -7,4 +7,8 @@ public class StringUtils {
         if (string == null || "".equals(string.trim())) result = true;
         return result;
     }
+
+    public static String getOrDefault(String target, String defaultVal) {
+        return StringUtils.isNullOrEmptyString(target) ? defaultVal : target;
+    }
 }
