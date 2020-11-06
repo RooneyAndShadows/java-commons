@@ -58,8 +58,16 @@ public class DateUtils {
     }
 
     public static boolean isDateEqual(Date testDate, Date target) {
+        return isDateEqual(testDate, target, true);
+    }
+
+    public static boolean isDateEqual(Date testDate, Date target, boolean withTime) {
         if (testDate == null || target == null)
             return testDate == target;
+        if (!withTime) {
+            testDate = DateUtils.setTimeToDate(testDate, 0, 0, 0);
+            target = DateUtils.setTimeToDate(target, 0, 0, 0);
+        }
         return testDate.compareTo(target) == 0;
     }
 
