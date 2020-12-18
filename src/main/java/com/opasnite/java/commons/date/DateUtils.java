@@ -1,4 +1,5 @@
 package com.opasnite.java.commons.date;
+// TODO replace java.utils.Date with java.time packages
 
 import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
@@ -262,14 +263,6 @@ public class DateUtils {
         return convertDateTimeToDate(dateTime);
     }
 
-    public static Date addHours(Date date, Integer hours) {
-        if (date == null)
-            return null;
-        DateTime dateTime = new DateTime(date);
-        dateTime.plusHours(hours);
-        return convertDateTimeToDate(dateTime);
-    }
-
     public static Date incrementDate(Date date, PeriodTypes type, int periods, int missPeriods) {
         if (date == null || type == null)
             return null;
@@ -286,16 +279,23 @@ public class DateUtils {
             case YEAR:
                 date = addYears(date, periods, missPeriods);
         }
-
         return date;
+    }
+
+    public static Date addHours(Date date, Integer hours) {
+        if (date == null)
+            return null;
+        DateTime dateTime = new DateTime(date);
+        dateTime.plusHours(hours);
+        return convertDateTimeToDate(dateTime);
     }
 
     private static Date addDays(Date date, int days, int missDays) {
         DateTime dateTime = new DateTime(date);
         if (missDays < 0)
             missDays = 0;
-        if (days != 0)
-            dateTime = dateTime.plusDays(days + missDays);
+        missDays = missDays + 1;
+        dateTime = dateTime.plusDays(days * missDays);
         return convertDateTimeToDate(dateTime);
     }
 
@@ -313,7 +313,8 @@ public class DateUtils {
         DateTime dateTime = new DateTime(date);
         if (missMonths < 0)
             missMonths = 0;
-        dateTime = dateTime.plusMonths(months + missMonths);
+        missMonths = missMonths + 1;
+        dateTime = dateTime.plusMonths(months * missMonths);
         return convertDateTimeToDate(dateTime);
     }
 
@@ -321,7 +322,8 @@ public class DateUtils {
         DateTime dateTime = new DateTime(date);
         if (missYears < 0)
             missYears = 0;
-        dateTime = dateTime.plusYears(years + missYears);
+        missYears = missYears + 1;
+        dateTime = dateTime.plusYears(years * missYears);
         return convertDateTimeToDate(dateTime);
     }
 
