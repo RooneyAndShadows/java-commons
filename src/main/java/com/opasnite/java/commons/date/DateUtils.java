@@ -19,7 +19,7 @@ public class DateUtils {
     }
 
     public static Date date(int year, int month, int day, int hour, int minute, int second) {
-        DateTime dateTime = new DateTime(DateTimeZone.UTC)
+        LocalDateTime dateTime = new LocalDateTime()
                 .withYear(year)
                 .withMonthOfYear(month)
                 .withDayOfMonth(day)
@@ -27,7 +27,7 @@ public class DateUtils {
                 .withMinuteOfHour(minute)
                 .withSecondOfMinute(second)
                 .withMillisOfSecond(0);
-        return convertDateTimeToDate(dateTime);
+        return convertLocalDateTimeToDate(dateTime);
     }
 
     public static Date date(int year, int month, int day) {
@@ -75,28 +75,28 @@ public class DateUtils {
     public static Date getFirstDayOfMonthDate(Date date) {
         if (date == null)
             return null;
-        DateTime dateTime = new DateTime(date).dayOfMonth().withMinimumValue();
-        return convertDateTimeToDate(dateTime);
+        LocalDateTime dateTime = new LocalDateTime(date).dayOfMonth().withMinimumValue();
+        return convertLocalDateTimeToDate(dateTime);
     }
 
     public static Date getLastDayOfMonthDate(Date date) {
         if (date == null)
             return null;
-        DateTime dateTime = new DateTime(date).dayOfMonth().withMaximumValue();
-        return convertDateTimeToDate(dateTime);
+        LocalDateTime dateTime = new LocalDateTime(date).dayOfMonth().withMaximumValue();
+        return convertLocalDateTimeToDate(dateTime);
     }
 
     public static Integer getHourOfDay(Date date) {
         if (date == null)
             return null;
-        DateTime datetime = new DateTime(date);
+        LocalDateTime datetime = new LocalDateTime(date);
         return datetime.hourOfDay().get();
     }
 
     public static Integer getMinuteOfHour(Date date) {
         if (date == null)
             return null;
-        DateTime datetime = new DateTime(date);
+        LocalDateTime datetime = new LocalDateTime(date);
         return datetime.minuteOfHour().get();
     }
 
@@ -110,10 +110,15 @@ public class DateUtils {
         return dateRepresentation == null ? null : new Date(dateRepresentation);
     }
 
+    public static Date getDateWithDayOfWeek(Date date, int dayOfWeek) {
+        LocalDateTime dateTime = new LocalDateTime(date);
+        return convertLocalDateTimeToDate(dateTime.withDayOfWeek(dayOfWeek));
+    }
+
     public static Date getDateWithoutTime(Date date) {
         if (date == null)
             return null;
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime dateTime = new LocalDateTime(date);
         LocalDate dateWithoutTime = new LocalDate(dateTime);
         return dateWithoutTime.toDate();
     }
@@ -124,16 +129,16 @@ public class DateUtils {
         if (format == null || format.equals(""))
             format = defaultFormat;
         DateTimeFormatter formatter = DateTimeFormat.forPattern(format);
-        DateTime dateTime = formatter.parseDateTime(dateString);
-        return convertDateTimeToDate(dateTime);
+        LocalDateTime dateTime = formatter.parseLocalDateTime(dateString);
+        return convertLocalDateTimeToDate(dateTime);
     }
 
     public static Date getDateFromStringInDefaultFormat(String dateString, boolean withTime) {
         if (dateString == null || dateString.equals(""))
             return null;
         DateTimeFormatter formatter = DateTimeFormat.forPattern(withTime ? defaultFormat : defaultFormatWithoutTime);
-        DateTime dateTime = formatter.parseDateTime(dateString);
-        return convertDateTimeToDate(dateTime);
+        LocalDateTime dateTime = formatter.parseLocalDateTime(dateString);
+        return convertLocalDateTimeToDate(dateTime);
     }
 
     public static Date getDateFromStringInDefaultFormat(String dateString) {
@@ -146,7 +151,7 @@ public class DateUtils {
         if (format == null || format.equals(""))
             format = defaultFormat;
         DateTimeFormatter formatter = DateTimeFormat.forPattern(format);
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime dateTime = new LocalDateTime(date);
         return formatter.print(dateTime);
     }
 
@@ -156,7 +161,7 @@ public class DateUtils {
         if (format == null || format.equals(""))
             format = defaultFormat;
         DateTimeFormatter formatter = DateTimeFormat.forPattern(format);
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime dateTime = new LocalDateTime(date);
         return formatter.withLocale(locale).print(dateTime);
     }
 
@@ -164,7 +169,7 @@ public class DateUtils {
         if (date == null)
             return null;
         DateTimeFormatter formatter = DateTimeFormat.forPattern(withTime ? defaultFormat : defaultFormatWithoutTime);
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime dateTime = new LocalDateTime(date);
         return formatter.print(dateTime);
     }
 
@@ -172,7 +177,7 @@ public class DateUtils {
         if (date == null)
             return null;
         DateTimeFormatter formatter = DateTimeFormat.forPattern(withTime ? defaultFormat : defaultFormatWithoutTime);
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime dateTime = new LocalDateTime(date);
         return formatter.withLocale(locale).print(dateTime);
     }
 
@@ -197,21 +202,21 @@ public class DateUtils {
     public static Integer extractDayOfMonthFromDate(Date date) {
         if (date == null)
             return null;
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime dateTime = new LocalDateTime(date);
         return dateTime.getDayOfMonth();
     }
 
     public static Integer extractMonthOfYearFromDate(Date date) {
         if (date == null)
             return null;
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime dateTime = new LocalDateTime(date);
         return dateTime.getMonthOfYear();
     }
 
     public static Integer extractYearFromDate(Date date) {
         if (date == null)
             return null;
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime dateTime = new LocalDateTime(date);
         return dateTime.getYear();
     }
 
@@ -219,8 +224,8 @@ public class DateUtils {
         if (startDate == null || endDate == null)
             return null;
         int periods = 0;
-        DateTime start = new DateTime(startDate);
-        DateTime end = new DateTime(endDate);
+        LocalDateTime start = new LocalDateTime(startDate);
+        LocalDateTime end = new LocalDateTime(endDate);
         switch (type) {
             case DAY:
                 periods = Days.daysBetween(start, end).getDays();
@@ -241,15 +246,15 @@ public class DateUtils {
     public static Date setTimeToDate(Date date, int hour, int minutes, int seconds) {
         if (date == null)
             return null;
-        DateTime dateTime = new DateTime(date).withHourOfDay(hour).withMinuteOfHour(minutes).withSecondOfMinute(seconds);
-        return convertDateTimeToDate(dateTime);
+        LocalDateTime dateTime = new LocalDateTime(date).withHourOfDay(hour).withMinuteOfHour(minutes).withSecondOfMinute(seconds);
+        return convertLocalDateTimeToDate(dateTime);
     }
 
     public static Date setYearToDate(Date date, int year) {
         if (date == null)
             return null;
-        DateTime dateTime = new DateTime(date).withYear(year);
-        return convertDateTimeToDate(dateTime);
+        LocalDateTime dateTime = new LocalDateTime(date).withYear(year);
+        return convertLocalDateTimeToDate(dateTime);
     }
 
     public static Date setMonthToDate(Date date, int month) {
@@ -259,8 +264,8 @@ public class DateUtils {
             month = 1;
         if (month > 12)
             month = 12;
-        DateTime dateTime = new DateTime(date).withMonthOfYear(month);
-        return convertDateTimeToDate(dateTime);
+        LocalDateTime dateTime = new LocalDateTime(date).withMonthOfYear(month);
+        return convertLocalDateTimeToDate(dateTime);
     }
 
     public static Date incrementDate(Date date, PeriodTypes type, int periods, int missPeriods) {
@@ -285,53 +290,53 @@ public class DateUtils {
     public static Date addHours(Date date, Integer hours) {
         if (date == null)
             return null;
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime dateTime = new LocalDateTime(date);
         dateTime.plusHours(hours);
-        return convertDateTimeToDate(dateTime);
+        return convertLocalDateTimeToDate(dateTime);
     }
 
     private static Date addDays(Date date, int days, int missDays) {
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime dateTime = new LocalDateTime(date);
         if (missDays < 0)
             missDays = 0;
         missDays = missDays + 1;
         dateTime = dateTime.plusDays(days * missDays);
-        return convertDateTimeToDate(dateTime);
+        return convertLocalDateTimeToDate(dateTime);
     }
 
     private static Date addWeeks(Date date, int weeks, int missWeeks) {
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime dateTime = new LocalDateTime(date);
         if (missWeeks < 0)
             missWeeks = 0;
         missWeeks = missWeeks + 1;
         int daysToAdd = 7 * weeks * missWeeks;
         dateTime = dateTime.plusDays(daysToAdd);
-        return convertDateTimeToDate(dateTime);
+        return convertLocalDateTimeToDate(dateTime);
     }
 
     private static Date addMonths(Date date, int months, int missMonths) {
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime dateTime = new LocalDateTime(date);
         if (missMonths < 0)
             missMonths = 0;
         missMonths = missMonths + 1;
         dateTime = dateTime.plusMonths(months * missMonths);
-        return convertDateTimeToDate(dateTime);
+        return convertLocalDateTimeToDate(dateTime);
     }
 
     private static Date addYears(Date date, int years, int missYears) {
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime dateTime = new LocalDateTime(date);
         if (missYears < 0)
             missYears = 0;
         missYears = missYears + 1;
         dateTime = dateTime.plusYears(years * missYears);
-        return convertDateTimeToDate(dateTime);
+        return convertLocalDateTimeToDate(dateTime);
     }
 
     public static Date getDateObjectByYearAndMonth(int year, int month) {
-        return new DateTime().withYear(year).withMonthOfYear(month).dayOfMonth().withMinimumValue().withTime(0, 0, 0, 0).toDate();
+        return new LocalDateTime().withYear(year).withMonthOfYear(month).dayOfMonth().withMinimumValue().withTime(0, 0, 0, 0).toDate();
     }
 
-    private static Date convertDateTimeToDate(DateTime dateTime) {
+    private static Date convertLocalDateTimeToDate(LocalDateTime dateTime) {
         try {
             DateTimeFormatter formatter = DateTimeFormat.forPattern(defaultFormat);
             String stringToParse = formatter.print(dateTime);
