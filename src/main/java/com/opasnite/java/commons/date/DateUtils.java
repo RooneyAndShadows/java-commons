@@ -190,6 +190,12 @@ public class DateUtils {
     }
 
 
+    public static int getDaysBetweenDates(Date date1, Date date2) {
+        DateTime d1 = new LocalDate(date1).toDateTimeAtStartOfDay();
+        DateTime d2 = new LocalDate(date2).toDateTimeAtStartOfDay();
+        return Days.daysBetween(d1, d2).getDays();
+    }
+
     public static ArrayList<Date> getAllMonthsForYear(int year) {
         ArrayList<Date> months = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
