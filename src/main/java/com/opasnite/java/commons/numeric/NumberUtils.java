@@ -4,13 +4,33 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 
-public class DoubleUtils {
+public class NumberUtils {
     private static final String DEFAULT_FORMAT = "###,##0.00";
 
     public static String getDoubleString(Double number, String format, DecimalFormatSymbols symbols) {
         DecimalFormat groupeddecimalFormat = new DecimalFormat(format, symbols);
         return groupeddecimalFormat.format(number);
+    }
+
+    public static String getShortNameString(double number) {
+
+        if (number >= 1000000000) {
+            return String.format("%.2fB", number / 1000000000.0);
+        }
+
+        if (number >= 1000000) {
+            return String.format("%.2fM", number / 1000000.0);
+        }
+
+        if (number >= 1000) {
+            return String.format("%.2fK", number / 1000.0);
+        }
+        return String.valueOf(number);
+
     }
 
     public static String getDoubleString(Double number, String format) {
@@ -35,5 +55,4 @@ public class DoubleUtils {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
-
 }
