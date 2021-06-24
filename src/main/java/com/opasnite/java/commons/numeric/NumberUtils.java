@@ -17,7 +17,6 @@ public class NumberUtils {
     }
 
     public static String getShortNameString(double number) {
-
         if (number >= 1000000000) {
             return String.format("%.2fB", number / 1000000000.0);
         }
@@ -29,8 +28,7 @@ public class NumberUtils {
         if (number >= 1000) {
             return String.format("%.2fK", number / 1000.0);
         }
-        return String.valueOf(number);
-
+        return String.format("%.2f", number);
     }
 
     public static String getDoubleString(Double number, String format) {
