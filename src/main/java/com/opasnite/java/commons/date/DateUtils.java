@@ -62,6 +62,25 @@ public class DateUtils {
         return isDateEqual(testDate, target, true);
     }
 
+    public static boolean isDayToday(Date testDate){
+        return isDateEqual(testDate, DateUtils.now(), false);
+    }
+
+    public static boolean isDayYesterday(Date testDate){
+        Date yesterdayDate = DateUtils.incrementDate(DateUtils.now(),PeriodTypes.DAY,-1,0);
+        return isDateEqual(testDate, yesterdayDate, false);
+    }
+
+    public static boolean isDayTomorrow(Date testDate){
+        Date tomorrowDate = DateUtils.incrementDate(DateUtils.now(),PeriodTypes.DAY,1,0);
+        return isDateEqual(testDate, tomorrowDate, false);
+    }
+
+    public static boolean isDayAfterTomorrow(Date testDate){
+        Date dayAfterTomorowDate = DateUtils.incrementDate(DateUtils.now(),PeriodTypes.DAY,2,0);
+        return isDateEqual(testDate, dayAfterTomorowDate, false);
+    }
+
     public static boolean isDateEqual(Date testDate, Date target, boolean withTime) {
         if (testDate == null || target == null)
             return testDate == target;
