@@ -17,18 +17,22 @@ public class NumberUtils {
     }
 
     public static String getShortNameString(double number) {
+        return getShortNameString(number, ',', '.');
+    }
+
+    public static String getShortNameString(double number, char groupingSeparator, char decimalSeparator) {
         if (number >= 1000000000) {
-            return String.format("%.2fB", number / 1000000000.0);
+            return getDoubleString(number / 1000000000.0, groupingSeparator, decimalSeparator).concat("B");
         }
 
         if (number >= 1000000) {
-            return String.format("%.2fM", number / 1000000.0);
+            return getDoubleString(number / 1000000.0, groupingSeparator, decimalSeparator).concat("M");
         }
 
         if (number >= 1000) {
-            return String.format("%.2fK", number / 1000.0);
+            return getDoubleString(number / 1000.0, groupingSeparator, decimalSeparator).concat("K");
         }
-        return String.format("%.2f", number);
+        return getDoubleString(number, groupingSeparator, decimalSeparator);
     }
 
     public static String getDoubleString(Double number, String format) {
@@ -40,9 +44,13 @@ public class NumberUtils {
     }
 
     public static String getDoubleString(Double number) {
+        return getDoubleString(number, ',', '.');
+    }
+
+    public static String getDoubleString(Double number, char groupingSeparator, char decimalSeparator) {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setGroupingSeparator(',');
-        symbols.setDecimalSeparator('.');
+        symbols.setGroupingSeparator(groupingSeparator);
+        symbols.setDecimalSeparator(decimalSeparator);
         DecimalFormat groupeddecimalFormat = new DecimalFormat(DEFAULT_FORMAT, symbols);
         return groupeddecimalFormat.format(number);
     }
