@@ -39,6 +39,14 @@ public class DateUtils {
     }
 
     public static boolean isDateInRange(Date testDate, Date start, Date end) {
+        return isDateInRange(testDate, start, end, true);
+    }
+
+    public static boolean isDateInRange(Date testDate, Date start, Date end, boolean withTime) {
+        if (!withTime) {
+            start = setTimeToDate(start, 0, 0, 0);
+            end = setTimeToDate(end, 23, 59, 59);
+        }
         return !testDate.before(start) && !testDate.after(end);
     }
 
@@ -62,22 +70,22 @@ public class DateUtils {
         return isDateEqual(testDate, target, true);
     }
 
-    public static boolean isDayToday(Date testDate){
+    public static boolean isDayToday(Date testDate) {
         return isDateEqual(testDate, DateUtils.now(), false);
     }
 
-    public static boolean isDayYesterday(Date testDate){
-        Date yesterdayDate = DateUtils.incrementDate(DateUtils.now(),PeriodTypes.DAY,-1,0);
+    public static boolean isDayYesterday(Date testDate) {
+        Date yesterdayDate = DateUtils.incrementDate(DateUtils.now(), PeriodTypes.DAY, -1, 0);
         return isDateEqual(testDate, yesterdayDate, false);
     }
 
-    public static boolean isDayTomorrow(Date testDate){
-        Date tomorrowDate = DateUtils.incrementDate(DateUtils.now(),PeriodTypes.DAY,1,0);
+    public static boolean isDayTomorrow(Date testDate) {
+        Date tomorrowDate = DateUtils.incrementDate(DateUtils.now(), PeriodTypes.DAY, 1, 0);
         return isDateEqual(testDate, tomorrowDate, false);
     }
 
-    public static boolean isDayAfterTomorrow(Date testDate){
-        Date dayAfterTomorowDate = DateUtils.incrementDate(DateUtils.now(),PeriodTypes.DAY,2,0);
+    public static boolean isDayAfterTomorrow(Date testDate) {
+        Date dayAfterTomorowDate = DateUtils.incrementDate(DateUtils.now(), PeriodTypes.DAY, 2, 0);
         return isDateEqual(testDate, dayAfterTomorowDate, false);
     }
 
