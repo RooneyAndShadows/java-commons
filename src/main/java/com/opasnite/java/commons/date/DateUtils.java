@@ -127,6 +127,13 @@ public class DateUtils {
         return datetime.minuteOfHour().get();
     }
 
+    public static Integer getSecondOfMinute(Date date) {
+        if (date == null)
+            return null;
+        LocalDateTime datetime = new LocalDateTime(date);
+        return datetime.secondOfMinute().get();
+    }
+
     public static Long getLongRepresentation(Date date) {
         if (date == null)
             return null;
