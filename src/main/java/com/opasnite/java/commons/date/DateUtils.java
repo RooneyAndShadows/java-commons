@@ -327,11 +327,27 @@ public class DateUtils {
         return date;
     }
 
-    public static Date addHours(Date date, Integer hours) {
+    public static Date addSeconds(Date date, int seconds) {
         if (date == null)
             return null;
-        LocalDateTime dateTime = new LocalDateTime(date);
-        dateTime.plusHours(hours);
+        LocalDateTime dateTime = new LocalDateTime(date)
+                .plusSeconds(seconds);
+        return convertLocalDateTimeToDate(dateTime);
+    }
+
+    public static Date addMinutes(Date date, int minutes) {
+        if (date == null)
+            return null;
+        LocalDateTime dateTime = new LocalDateTime(date)
+                .plusMinutes(minutes);
+        return convertLocalDateTimeToDate(dateTime);
+    }
+
+    public static Date addHours(Date date, int hours) {
+        if (date == null)
+            return null;
+        LocalDateTime dateTime = new LocalDateTime(date)
+                .plusHours(hours);
         return convertLocalDateTimeToDate(dateTime);
     }
 
