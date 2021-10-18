@@ -1,4 +1,4 @@
-package com.github.RooneyAndShadows.commons.email.exception;
+package com.github.rooneyandshadows.commons.email.exception;
 
 public class EmailMessagePreparationException  extends Exception{
     public EmailMessagePreparationException(String message) {

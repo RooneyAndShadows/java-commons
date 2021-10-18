@@ -1,4 +1,4 @@
-package com.github.RooneyAndShadows.commons.email.exception;
+package com.github.rooneyandshadows.commons.email.exception;
 
 public class ServiceInitializationErrorException extends Exception {
     public ServiceInitializationErrorException(String message) {

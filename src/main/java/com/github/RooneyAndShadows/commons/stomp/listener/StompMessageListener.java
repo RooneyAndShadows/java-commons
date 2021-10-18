@@ -19,9 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.RooneyAndShadows.commons.stomp.listener;
+package com.github.rooneyandshadows.commons.stomp.listener;
 
-import com.github.RooneyAndShadows.commons.stomp.frame.StompFrame;
+import com.github.rooneyandshadows.commons.stomp.frame.StompFrame;
 
 /**
  * STOMP message subscription listener interface.

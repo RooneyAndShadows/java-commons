@@ -1,4 +1,4 @@
-package com.github.RooneyAndShadows.commons.mapping.exception;
+package com.github.rooneyandshadows.commons.mapping.exception;
 
 public class MappingException extends Exception {
 

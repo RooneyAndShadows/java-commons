@@ -19,10 +19,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.RooneyAndShadows.commons.stomp;
+package com.github.rooneyandshadows.commons.stomp;
 
 
-import com.github.RooneyAndShadows.commons.stomp.listener.StompMessageListener;
+import com.github.rooneyandshadows.commons.stomp.listener.StompMessageListener;
 
 /**
  * STOMP subscription POJO

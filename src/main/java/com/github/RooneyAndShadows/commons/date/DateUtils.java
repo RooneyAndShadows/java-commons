@@ -1,4 +1,4 @@
-package com.github.RooneyAndShadows.commons.date;
+package com.github.rooneyandshadows.commons.date;
 // TODO replace java.utils.Date with java.time packages
 
 import org.joda.time.*;

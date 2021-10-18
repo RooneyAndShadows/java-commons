@@ -1,4 +1,4 @@
-package com.github.RooneyAndShadows.commons.string;
+package com.github.rooneyandshadows.commons.string;
 
 import java.util.ArrayList;
 import java.util.List;

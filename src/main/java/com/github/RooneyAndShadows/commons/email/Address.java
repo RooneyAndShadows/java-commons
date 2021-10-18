@@ -1,4 +1,4 @@
-package com.github.RooneyAndShadows.commons.email;
+package com.github.rooneyandshadows.commons.email;
 
 public class Address {
     public final String emailAddress;

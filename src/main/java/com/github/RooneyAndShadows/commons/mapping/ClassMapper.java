@@ -1,6 +1,6 @@
-package com.github.RooneyAndShadows.commons.mapping;
+package com.github.rooneyandshadows.commons.mapping;
 
-import com.github.RooneyAndShadows.commons.mapping.exception.MappingException;
+import com.github.rooneyandshadows.commons.mapping.exception.MappingException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

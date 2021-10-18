@@ -1,4 +1,4 @@
-package com.github.RooneyAndShadows.commons.crypto;
+package com.github.rooneyandshadows.commons.crypto;
 
 import org.mindrot.jbcrypt.BCrypt;
 

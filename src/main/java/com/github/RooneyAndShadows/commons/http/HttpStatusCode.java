@@ -1,4 +1,4 @@
-package com.github.RooneyAndShadows.commons.http;
+package com.github.rooneyandshadows.commons.http;
 
 @SuppressWarnings("unused")
 public enum HttpStatusCode {

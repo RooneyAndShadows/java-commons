@@ -1,4 +1,4 @@
-package com.github.RooneyAndShadows.commons.numeric;
+package com.github.rooneyandshadows.commons.numeric;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

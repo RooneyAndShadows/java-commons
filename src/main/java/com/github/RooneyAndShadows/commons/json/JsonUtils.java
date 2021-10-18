@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.RooneyAndShadows.commons.json;
+package com.github.rooneyandshadows.commons.json;
 
 import com.google.gson.*;
-import com.github.RooneyAndShadows.commons.date.DateUtils;
+import com.github.rooneyandshadows.commons.date.DateUtils;
 
 import java.lang.reflect.Type;
 import java.util.Map.Entry;

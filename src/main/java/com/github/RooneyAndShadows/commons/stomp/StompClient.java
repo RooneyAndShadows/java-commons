@@ -19,13 +19,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.RooneyAndShadows.commons.stomp;
+package com.github.rooneyandshadows.commons.stomp;
 
-import com.github.RooneyAndShadows.commons.stomp.frame.StompCommand;
-import com.github.RooneyAndShadows.commons.stomp.frame.StompFrame;
-import com.github.RooneyAndShadows.commons.stomp.frame.StompHeader;
-import com.github.RooneyAndShadows.commons.stomp.listener.StompConnectionListener;
-import com.github.RooneyAndShadows.commons.stomp.listener.StompMessageListener;
+import com.github.rooneyandshadows.commons.stomp.frame.StompCommand;
+import com.github.rooneyandshadows.commons.stomp.frame.StompFrame;
+import com.github.rooneyandshadows.commons.stomp.frame.StompHeader;
+import com.github.rooneyandshadows.commons.stomp.listener.StompConnectionListener;
+import com.github.rooneyandshadows.commons.stomp.listener.StompMessageListener;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
 import org.java_websocket.handshake.ServerHandshake;

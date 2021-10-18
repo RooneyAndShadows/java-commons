@@ -1,4 +1,4 @@
-package com.github.RooneyAndShadows.commons.email.implementations;
+package com.github.rooneyandshadows.commons.email.implementations;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -12,12 +12,12 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
-import com.github.RooneyAndShadows.commons.email.Address;
-import com.github.RooneyAndShadows.commons.email.EmailDeliveryReport;
-import com.github.RooneyAndShadows.commons.email.EmailMessage;
-import com.github.RooneyAndShadows.commons.email.IEmailSender;
-import com.github.RooneyAndShadows.commons.email.exception.EmailMessagePreparationException;
-import com.github.RooneyAndShadows.commons.email.exception.ServiceInitializationErrorException;
+import com.github.rooneyandshadows.commons.email.Address;
+import com.github.rooneyandshadows.commons.email.EmailDeliveryReport;
+import com.github.rooneyandshadows.commons.email.EmailMessage;
+import com.github.rooneyandshadows.commons.email.IEmailSender;
+import com.github.rooneyandshadows.commons.email.exception.EmailMessagePreparationException;
+import com.github.rooneyandshadows.commons.email.exception.ServiceInitializationErrorException;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.mail.Message;

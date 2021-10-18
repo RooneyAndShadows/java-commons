@@ -1,4 +1,4 @@
-package com.github.RooneyAndShadows.commons.stomp.listener;
+package com.github.rooneyandshadows.commons.stomp.listener;
 
 /**
  * STOMP connection established listener.
