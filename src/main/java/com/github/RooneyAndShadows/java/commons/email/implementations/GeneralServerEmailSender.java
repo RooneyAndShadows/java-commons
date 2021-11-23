@@ -1,4 +1,4 @@
-package com.github.RooneyAndShadows.java.commons.email.implementations;
+package com.github.rooneyandshadows.java.commons.email.implementations;
 
 import com.github.rooneyandshadows.java.commons.email.EmailDeliveryReport;
 import com.github.rooneyandshadows.java.commons.email.EmailMessage;
