@@ -194,17 +194,26 @@ public class StompClient extends WebSocketClient {
      * @return STOMP subscription data that can be used to unsubscribe
      */
     public StompSubscription subscribe(String destination, StompMessageListener listener) {
-        StompSubscription subscription = new StompSubscription(UUID.randomUUID().hashCode(), destination, listener);
+        return subscribe(destination, new HashMap<>(), listener);
+    }
 
+    /**
+     * Subscribe to a specific topic.
+     *
+     * @param destination  topic destination
+     * @param listener     listener
+     * @param headersToAdd headers to add
+     * @return STOMP subscription data that can be used to unsubscribe
+     */
+    public StompSubscription subscribe(String destination, Map<String, String> headersToAdd, StompMessageListener listener) {
+        StompSubscription subscription = new StompSubscription(UUID.randomUUID().hashCode(), destination, listener);
         Map<String, String> headers = new HashMap<>();
         headers.put(StompHeader.ID.toString(), String.valueOf(subscription.getId()));
         headers.put(StompHeader.DESTINATION.toString(), subscription.getDestination());
-
+        headersToAdd.forEach(headers::putIfAbsent);
         StompFrame frame = new StompFrame(StompCommand.SUBSCRIBE, headers);
         send(frame.toString());
-
         subscriptions.put(subscription.getId(), subscription);
-
         return subscription;
     }
 
@@ -214,12 +223,21 @@ public class StompClient extends WebSocketClient {
      * @param subscription subscription
      */
     public void removeSubscription(StompSubscription subscription) {
+        removeSubscription(subscription, new HashMap<>());
+    }
+
+    /**
+     * Remove a single subscription.
+     *
+     * @param subscription subscription
+     * @param headersToAdd headers to add
+     */
+    public void removeSubscription(StompSubscription subscription, Map<String, String> headersToAdd) {
         Map<String, String> headers = new HashMap<>();
         headers.put(StompHeader.ID.toString(), String.valueOf(subscription.getId()));
-
+        headersToAdd.forEach(headers::putIfAbsent);
         StompFrame frame = new StompFrame(StompCommand.UNSUBSCRIBE, headers);
         send(frame.toString());
-
         subscriptions.remove(subscription.getId());
     }
 
