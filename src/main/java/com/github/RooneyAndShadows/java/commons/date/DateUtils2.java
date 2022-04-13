@@ -1,4 +1,4 @@
-package com.github.RooneyAndShadows.java.commons.date;
+package com.github.rooneyandshadows.java.commons.date;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -29,6 +29,8 @@ public class DateUtils2 {
     }
 
     public static ZonedDateTime toTimeZone(ZonedDateTime date, ZoneId timeZone) {
+        if (date == null)
+            return null;
         return date.withZoneSameInstant(timeZone);
     }
 
@@ -162,7 +164,8 @@ public class DateUtils2 {
             return null;
         return date.withHour(0)
                 .withMinute(0)
-                .withSecond(0);
+                .withSecond(0)
+                .withNano(0);
     }
 
     public static ZonedDateTime getDateFromStringInDefaultFormat(String dateString) {
@@ -229,15 +232,15 @@ public class DateUtils2 {
         return date.getDayOfMonth();
     }
 
-    public static Integer extractMonthOfYearFromDate(ZonedDateTime date) {
+    public static int extractMonthOfYearFromDate(ZonedDateTime date) {
         if (date == null)
-            return null;
-        return date.getDayOfMonth();
+            return 0;
+        return date.getMonthValue();
     }
 
-    public static Integer extractYearFromDate(ZonedDateTime date) {
+    public static int extractYearFromDate(ZonedDateTime date) {
         if (date == null)
-            return null;
+            return 0;
         return date.getYear();
     }
 
@@ -267,7 +270,8 @@ public class DateUtils2 {
             return null;
         return date.withHour(hour)
                 .withMinute(minutes)
-                .withMinute(seconds);
+                .withSecond(seconds)
+                .withNano(0);
     }
 
     public static ZonedDateTime setYearToDate(ZonedDateTime date, int year) {

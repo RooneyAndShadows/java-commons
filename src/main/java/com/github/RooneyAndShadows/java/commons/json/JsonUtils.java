@@ -5,10 +5,11 @@
  */
 package com.github.rooneyandshadows.java.commons.json;
 
+import com.github.rooneyandshadows.java.commons.date.DateUtils2;
 import com.google.gson.*;
-import com.github.rooneyandshadows.java.commons.date.DateUtils;
 
 import java.lang.reflect.Type;
+import java.time.ZonedDateTime;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -18,7 +19,19 @@ import java.util.Set;
 public class JsonUtils {
 
     public static Gson buildGson() {
-        return new GsonBuilder().setDateFormat(DateUtils.defaultFormat).create();
+        return buildGson(DateUtils2.defaultFormat);
+    }
+
+    public static Gson buildGsonWithZonedDateTime() {
+        return new GsonBuilder()
+                .registerTypeAdapter(ZonedDateTime.class, GSONHelper.ZONED_DATE_TIME_JSON_DESERIALIZER)
+                .registerTypeAdapter(ZonedDateTime.class, GSONHelper.ZONED_DATE_TIME_JSON_SERIALIZER)
+                .setDateFormat(DateUtils2.defaultFormatWithTimeZone)
+                .create();
+    }
+
+    public static Gson buildGson(String dateFormat) {
+        return new GsonBuilder().setDateFormat(dateFormat).create();
     }
 
     public static String toJson(Object target) {

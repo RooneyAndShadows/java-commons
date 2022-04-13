@@ -1,5 +1,4 @@
 package com.github.rooneyandshadows.java.commons.date;
-// TODO replace java.utils.Date with java.time packages
 
 import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
@@ -9,9 +8,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * @deprecated Use DateUtil2 for accurate datetime operations with timezone support
+ */
 @SuppressWarnings("unused")
 public class DateUtils {
     public static final String defaultFormat = "yyyy-MM-dd HH:mm:ss";
+    public static final String defaultFormatWithTimeZone = "yyyy-MM-dd HH:mm:ssZ";
     public static final String defaultFormatWithoutTime = "yyyy-MM-dd";
 
     public static Date now() {
@@ -402,6 +405,7 @@ public class DateUtils {
             return null;
         }
     }
+
 
     public enum PeriodTypes {
         DAY(1),
