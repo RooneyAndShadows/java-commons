@@ -34,6 +34,18 @@ public class DateUtils2 {
         return date.withZoneSameInstant(timeZone);
     }
 
+    public static Date toDate(ZonedDateTime date) {
+        return new Date(date.toInstant().toEpochMilli());
+    }
+
+    public static ZonedDateTime fromDate(Date date) {
+        return fromDate(date, ZoneId.systemDefault().toString());
+    }
+
+    public static ZonedDateTime fromDate(Date date, String toTimezone) {
+        return ZonedDateTime.ofInstant(date.toInstant(), ZoneId.of(toTimezone));
+    }
+
     public static ZonedDateTime date(int year, int month, int day, int hour, int minute, int second, ZoneId timezone) {
         return ZonedDateTime.of(year, month, day, hour, minute, second, 0, timezone);
     }
