@@ -8,9 +8,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
- * @deprecated Use DateUtil2 for accurate datetime operations with timezone support
- */
 @SuppressWarnings("unused")
 public class DateUtils {
     public static final String defaultFormat = "yyyy-MM-dd HH:mm:ss";
