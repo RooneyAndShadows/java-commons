@@ -14,6 +14,12 @@ public class DateUtils {
     public static final String defaultFormatWithTimeZone = "yyyy-MM-dd HH:mm:ssZ";
     public static final String defaultFormatWithoutTime = "yyyy-MM-dd";
 
+    public static String getLocalTimeZone() {
+        String offset = new SimpleDateFormat("X").format(new Date());
+        offset = "UTC" + offset.substring(0, 3);
+        return offset;
+    }
+
     public static Date now() {
         return new Date();
     }
@@ -184,9 +190,7 @@ public class DateUtils {
             return null;
         if (format == null || format.equals(""))
             format = defaultFormat;
-        DateTimeFormatter formatter = DateTimeFormat.forPattern(format);
-        LocalDateTime dateTime = new LocalDateTime(date);
-        return formatter.print(dateTime);
+        return new SimpleDateFormat(format).format(date);
     }
 
     public static String getDateString(String format, Date date, Locale locale) {
@@ -194,25 +198,19 @@ public class DateUtils {
             return null;
         if (format == null || format.equals(""))
             format = defaultFormat;
-        DateTimeFormatter formatter = DateTimeFormat.forPattern(format);
-        LocalDateTime dateTime = new LocalDateTime(date);
-        return formatter.withLocale(locale).print(dateTime);
+        return new SimpleDateFormat(format, locale).format(date);
     }
 
     public static String getDateStringInDefaultFormat(Date date, boolean withTime) {
         if (date == null)
             return null;
-        DateTimeFormatter formatter = DateTimeFormat.forPattern(withTime ? defaultFormat : defaultFormatWithoutTime);
-        LocalDateTime dateTime = new LocalDateTime(date);
-        return formatter.print(dateTime);
+        return new SimpleDateFormat(withTime ? defaultFormat : defaultFormatWithoutTime).format(date);
     }
 
     public static String getDateStringInDefaultFormat(Date date, Locale locale, boolean withTime) {
         if (date == null)
             return null;
-        DateTimeFormatter formatter = DateTimeFormat.forPattern(withTime ? defaultFormat : defaultFormatWithoutTime);
-        LocalDateTime dateTime = new LocalDateTime(date);
-        return formatter.withLocale(locale).print(dateTime);
+        return new SimpleDateFormat(withTime ? defaultFormat : defaultFormatWithoutTime,locale).format(date);
     }
 
     public static String getDateStringInDefaultFormat(Date date, Locale locale) {
