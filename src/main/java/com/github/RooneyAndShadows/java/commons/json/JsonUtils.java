@@ -5,8 +5,8 @@
  */
 package com.github.rooneyandshadows.java.commons.json;
 
-import com.github.rooneyandshadows.java.commons.date.DateUtils2;
 import com.google.gson.*;
+import org.threeten.bp.OffsetDateTime;
 
 import java.lang.reflect.Type;
 import java.time.ZonedDateTime;
@@ -19,14 +19,22 @@ import java.util.Set;
 public class JsonUtils {
 
     public static Gson buildGson() {
-        return buildGson(DateUtils2.defaultFormat);
+        return buildGson(com.github.rooneyandshadows.java.commons.date.DateUtilsZonedDate.defaultFormat);
     }
 
     public static Gson buildGsonWithZonedDateTime() {
         return new GsonBuilder()
-                .registerTypeAdapter(ZonedDateTime.class, GSONHelper.ZONED_DATE_TIME_JSON_DESERIALIZER)
-                .registerTypeAdapter(ZonedDateTime.class, GSONHelper.ZONED_DATE_TIME_JSON_SERIALIZER)
-                .setDateFormat(DateUtils2.defaultFormatWithTimeZone)
+                .registerTypeAdapter(ZonedDateTime.class, com.github.rooneyandshadows.java.commons.json.GSONHelper.ZONED_DATE_TIME_JSON_DESERIALIZER)
+                .registerTypeAdapter(ZonedDateTime.class, com.github.rooneyandshadows.java.commons.json.GSONHelper.ZONED_DATE_TIME_JSON_SERIALIZER)
+                .setDateFormat(com.github.rooneyandshadows.java.commons.date.DateUtilsZonedDate.defaultFormatWithTimeZone)
+                .create();
+    }
+
+    public static Gson buildGsonWithThreeTenDate() {
+        return new GsonBuilder()
+                .registerTypeAdapter(OffsetDateTime.class, com.github.rooneyandshadows.java.commons.json.GSONHelper.THREE_TEN_OFFSET_DATE_TIME_JSON_DESERIALIZER)
+                .registerTypeAdapter(OffsetDateTime.class, com.github.rooneyandshadows.java.commons.json.GSONHelper.THREE_TEN_OFFSET_DATE_TIME_JSON_SERIALIZER)
+                .setDateFormat(com.github.rooneyandshadows.java.commons.date.DateUtilsThreeTen.defaultFormatWithTimeZone)
                 .create();
     }
 
