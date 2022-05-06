@@ -1,19 +1,23 @@
 package com.github.rooneyandshadows.java.commons.date;
 
-import org.threeten.bp.*;
-import org.threeten.bp.format.DateTimeFormatter;
-import org.threeten.bp.temporal.ChronoUnit;
 
+import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 
 @SuppressWarnings("unused")
-public class DateUtilsThreeTen {
+public class DateUtilsOffsetDate {
     public static final String defaultFormat = "yyyy-MM-dd HH:mm:ss";
     public static final String defaultFormatWithTimeZone = "yyyy-MM-dd HH:mm:ssZ";
     public static final String defaultFormatWithoutTime = "yyyy-MM-dd";
 
     public static String getLocalTimeZone() {
-        return ZoneId.systemDefault().getId();
+        String offset = new SimpleDateFormat("X").format(new Date());
+        offset = offset.substring(0, 3);
+        return offset;
     }
 
     public static OffsetDateTime nowLocal() {
@@ -47,11 +51,11 @@ public class DateUtilsThreeTen {
     }
 
     public static OffsetDateTime fromDate(Date date) {
-        return fromDate(date, ZoneId.systemDefault().toString());
+        return fromDate(date, getLocalTimeZone());
     }
 
     public static OffsetDateTime fromDate(Date date, String toTimezone) {
-        return OffsetDateTime.ofInstant(org.threeten.bp.Instant.ofEpochSecond(date.toInstant().toEpochMilli()), ZoneOffset.of(toTimezone));
+        return OffsetDateTime.ofInstant(Instant.ofEpochSecond(date.toInstant().toEpochMilli()), ZoneOffset.of(toTimezone));
     }
 
     public static OffsetDateTime date(int year, int month, int day, int hour, int minute, int second, ZoneOffset timezone) {
@@ -59,7 +63,7 @@ public class DateUtilsThreeTen {
     }
 
     public static OffsetDateTime date(int year, int month, int day, int hour, int minute, int second) {
-        return date(year, month, day, hour, minute, second, (ZoneOffset) ZoneId.systemDefault());
+        return date(year, month, day, hour, minute, second, ZoneOffset.of(getLocalTimeZone()));
     }
 
     public static OffsetDateTime date(int year, int month, int day) {
@@ -103,21 +107,21 @@ public class DateUtilsThreeTen {
     }
 
     public static boolean isDayToday(OffsetDateTime testDate) {
-        return isDateEqual(testDate, DateUtilsThreeTen.now(testDate.getOffset()), false);
+        return isDateEqual(testDate, DateUtilsOffsetDate.now(testDate.getOffset()), false);
     }
 
     public static boolean isDayYesterday(OffsetDateTime testDate) {
-        OffsetDateTime yesterdayDate = DateUtilsThreeTen.incrementDate(DateUtilsThreeTen.now(testDate.getOffset()), PeriodTypes.DAY, -1, 0);
+        OffsetDateTime yesterdayDate = DateUtilsOffsetDate.incrementDate(DateUtilsOffsetDate.now(testDate.getOffset()), PeriodTypes.DAY, -1, 0);
         return isDateEqual(testDate, yesterdayDate, false);
     }
 
     public static boolean isDayTomorrow(OffsetDateTime testDate) {
-        OffsetDateTime tomorrowDate = DateUtilsThreeTen.incrementDate(DateUtilsThreeTen.now(testDate.getOffset()), PeriodTypes.DAY, 1, 0);
+        OffsetDateTime tomorrowDate = DateUtilsOffsetDate.incrementDate(DateUtilsOffsetDate.now(testDate.getOffset()), PeriodTypes.DAY, 1, 0);
         return isDateEqual(testDate, tomorrowDate, false);
     }
 
     public static boolean isDayAfterTomorrow(OffsetDateTime testDate) {
-        OffsetDateTime dayAfterTomorrowDate = DateUtilsThreeTen.incrementDate(DateUtilsThreeTen.now(testDate.getOffset()), PeriodTypes.DAY, 2, 0);
+        OffsetDateTime dayAfterTomorrowDate = DateUtilsOffsetDate.incrementDate(DateUtilsOffsetDate.now(testDate.getOffset()), PeriodTypes.DAY, 2, 0);
         return isDateEqual(testDate, dayAfterTomorrowDate, false);
     }
 
@@ -125,8 +129,8 @@ public class DateUtilsThreeTen {
         if (testDate == null || target == null)
             return testDate == target;
         if (!withTime) {
-            testDate = DateUtilsThreeTen.setTimeToDate(testDate, 0, 0, 0);
-            target = DateUtilsThreeTen.setTimeToDate(target, 0, 0, 0);
+            testDate = DateUtilsOffsetDate.setTimeToDate(testDate, 0, 0, 0);
+            target = DateUtilsOffsetDate.setTimeToDate(target, 0, 0, 0);
         }
         return testDate.compareTo(target) == 0;
     }
@@ -134,13 +138,13 @@ public class DateUtilsThreeTen {
     public static OffsetDateTime getFirstDayOfMonthDate(OffsetDateTime date) {
         if (date == null)
             return null;
-        return date.with(org.threeten.bp.temporal.TemporalAdjusters.firstDayOfMonth());
+        return date.with(TemporalAdjusters.firstDayOfMonth());
     }
 
     public static OffsetDateTime getLastDayOfMonthDate(OffsetDateTime date) {
         if (date == null)
             return null;
-        return date.with(org.threeten.bp.temporal.TemporalAdjusters.lastDayOfMonth());
+        return date.with(TemporalAdjusters.lastDayOfMonth());
     }
 
     public static Integer getHourOfDay(OffsetDateTime date) {
@@ -168,7 +172,7 @@ public class DateUtilsThreeTen {
     }
 
     public static OffsetDateTime getDateFromLong(Long dateRepresentation) {
-        return getDateFromLong(dateRepresentation, ZoneId.systemDefault());
+        return getDateFromLong(dateRepresentation, ZoneOffset.of(getLocalTimeZone()));
     }
 
     public static OffsetDateTime getDateFromLong(Long dateRepresentation, ZoneId zoneId) {
@@ -237,10 +241,11 @@ public class DateUtilsThreeTen {
     public static int getDaysBetweenDates(OffsetDateTime date1, OffsetDateTime date2) {
         return getPeriodsInInterval(getDateWithoutTime(date1), getDateWithoutTime(date2), PeriodTypes.DAY);
     }
+
     public static List<OffsetDateTime> getAllMonthsForYear(int year) {
         ArrayList<OffsetDateTime> months = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
-            OffsetDateTime newDate = DateUtilsThreeTen.date(year, i, 1);
+            OffsetDateTime newDate = DateUtilsOffsetDate.date(year, i, 1);
             months.add(newDate);
         }
         return months;
@@ -344,7 +349,7 @@ public class DateUtilsThreeTen {
     public static OffsetDateTime addHours(OffsetDateTime date, int hours) {
         if (date == null)
             return null;
-       return date.plusHours(hours);
+        return date.plusHours(hours);
     }
 
     private static OffsetDateTime addDays(OffsetDateTime date, int days, int missDays) {

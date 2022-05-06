@@ -5,10 +5,11 @@
  */
 package com.github.rooneyandshadows.java.commons.json;
 
+import com.github.rooneyandshadows.java.commons.date.DateUtilsOffsetDate;
 import com.google.gson.*;
-import org.threeten.bp.OffsetDateTime;
 
 import java.lang.reflect.Type;
+import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -32,9 +33,9 @@ public class JsonUtils {
 
     public static Gson buildGsonWithThreeTenDate() {
         return new GsonBuilder()
-                .registerTypeAdapter(OffsetDateTime.class, com.github.rooneyandshadows.java.commons.json.GSONHelper.THREE_TEN_OFFSET_DATE_TIME_JSON_DESERIALIZER)
+                .registerTypeAdapter(OffsetDateTime.class, com.github.rooneyandshadows.java.commons.json.GSONHelper.OFFSET_DATE_TIME_JSON_DESERIALIZER)
                 .registerTypeAdapter(OffsetDateTime.class, com.github.rooneyandshadows.java.commons.json.GSONHelper.THREE_TEN_OFFSET_DATE_TIME_JSON_SERIALIZER)
-                .setDateFormat(com.github.rooneyandshadows.java.commons.date.DateUtilsThreeTen.defaultFormatWithTimeZone)
+                .setDateFormat(DateUtilsOffsetDate.defaultFormatWithTimeZone)
                 .create();
     }
 
