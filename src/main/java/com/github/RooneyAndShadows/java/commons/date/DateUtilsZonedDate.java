@@ -14,7 +14,6 @@ public class DateUtilsZonedDate {
     public static final String defaultFormatWithoutTime = "yyyy-MM-dd";
 
 
-
     public static ZonedDateTime nowLocal() {
         return now(ZoneId.systemDefault());
     }
@@ -183,14 +182,6 @@ public class DateUtilsZonedDate {
                 .withNano(0);
     }
 
-    public static ZonedDateTime getDateFromStringInDefaultFormat(String dateString) {
-        return getDateFromStringInDefaultFormat(dateString, true);
-    }
-
-    public static ZonedDateTime getDateFromStringInDefaultFormat(String dateString, boolean withTime) {
-        return getDateFromString(withTime ? defaultFormat : defaultFormatWithoutTime, dateString);
-    }
-
     public static ZonedDateTime getDateFromString(String format, String dateString) {
         if (dateString == null || dateString.equals(""))
             return null;
@@ -198,22 +189,6 @@ public class DateUtilsZonedDate {
             format = defaultFormat;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return ZonedDateTime.parse(dateString, formatter);
-    }
-
-    public static String getDateStringInDefaultFormat(ZonedDateTime date) {
-        return getDateStringInDefaultFormat(date, true);
-    }
-
-    public static String getDateStringInDefaultFormat(ZonedDateTime date, boolean withTime) {
-        return getDateStringInDefaultFormat(date, Locale.getDefault(), withTime);
-    }
-
-    public static String getDateStringInDefaultFormat(ZonedDateTime date, Locale locale) {
-        return getDateStringInDefaultFormat(date, locale, true);
-    }
-
-    public static String getDateStringInDefaultFormat(ZonedDateTime date, Locale locale, boolean withTime) {
-        return getDateString(withTime ? defaultFormat : defaultFormatWithoutTime, date, locale);
     }
 
     public static String getDateString(String format, ZonedDateTime date) {
@@ -232,6 +207,7 @@ public class DateUtilsZonedDate {
     public static int getDaysBetweenDates(ZonedDateTime date1, ZonedDateTime date2) {
         return getPeriodsInInterval(getDateWithoutTime(date1), getDateWithoutTime(date2), PeriodTypes.DAY);
     }
+
     public static List<ZonedDateTime> getAllMonthsForYear(int year) {
         ArrayList<ZonedDateTime> months = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {
@@ -339,7 +315,7 @@ public class DateUtilsZonedDate {
     public static ZonedDateTime addHours(ZonedDateTime date, int hours) {
         if (date == null)
             return null;
-       return date.plusHours(hours);
+        return date.plusHours(hours);
     }
 
     private static ZonedDateTime addDays(ZonedDateTime date, int days, int missDays) {

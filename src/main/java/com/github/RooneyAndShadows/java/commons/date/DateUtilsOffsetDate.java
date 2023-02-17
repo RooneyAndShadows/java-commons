@@ -192,14 +192,6 @@ public class DateUtilsOffsetDate {
                 .withNano(0);
     }
 
-    public static OffsetDateTime getDateFromStringInDefaultFormat(String dateString) {
-        return getDateFromStringInDefaultFormat(dateString, true);
-    }
-
-    public static OffsetDateTime getDateFromStringInDefaultFormat(String dateString, boolean withTime) {
-        return getDateFromString(withTime ? defaultFormat : defaultFormatWithoutTime, dateString);
-    }
-
     public static OffsetDateTime getDateFromString(String format, String dateString) {
         if (dateString == null || dateString.equals(""))
             return null;
@@ -207,22 +199,6 @@ public class DateUtilsOffsetDate {
             format = defaultFormat;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return OffsetDateTime.parse(dateString, formatter);
-    }
-
-    public static String getDateStringInDefaultFormat(OffsetDateTime date) {
-        return getDateStringInDefaultFormat(date, true);
-    }
-
-    public static String getDateStringInDefaultFormat(OffsetDateTime date, boolean withTime) {
-        return getDateStringInDefaultFormat(date, Locale.getDefault(), withTime);
-    }
-
-    public static String getDateStringInDefaultFormat(OffsetDateTime date, Locale locale) {
-        return getDateStringInDefaultFormat(date, locale, true);
-    }
-
-    public static String getDateStringInDefaultFormat(OffsetDateTime date, Locale locale, boolean withTime) {
-        return getDateString(withTime ? defaultFormat : defaultFormatWithoutTime, date, locale);
     }
 
     public static String getDateString(String format, OffsetDateTime date) {

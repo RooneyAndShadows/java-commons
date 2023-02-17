@@ -166,30 +166,16 @@ public class DateUtils {
     public static Date getDateFromString(String format, String dateString) {
         if (dateString == null || dateString.equals(""))
             return null;
-        if (format == null || format.equals(""))
-            format = defaultFormat;
+        if (format == null || format.equals("")) format = defaultFormat;
         DateTimeFormatter formatter = DateTimeFormat.forPattern(format);
         LocalDateTime dateTime = formatter.parseLocalDateTime(dateString);
         return convertLocalDateTimeToDate(dateTime);
     }
 
-    public static Date getDateFromStringInDefaultFormat(String dateString, boolean withTime) {
-        if (dateString == null || dateString.equals(""))
-            return null;
-        DateTimeFormatter formatter = DateTimeFormat.forPattern(withTime ? defaultFormat : defaultFormatWithoutTime);
-        LocalDateTime dateTime = formatter.parseLocalDateTime(dateString);
-        return convertLocalDateTimeToDate(dateTime);
-    }
-
-    public static Date getDateFromStringInDefaultFormat(String dateString) {
-        return getDateFromStringInDefaultFormat(dateString, true);
-    }
-
     public static String getDateString(String format, Date date) {
         if (date == null)
             return null;
-        if (format == null || format.equals(""))
-            format = defaultFormat;
+        if (format == null || format.equals("")) format = defaultFormat;
         return new SimpleDateFormat(format).format(date);
     }
 
@@ -200,27 +186,6 @@ public class DateUtils {
             format = defaultFormat;
         return new SimpleDateFormat(format, locale).format(date);
     }
-
-    public static String getDateStringInDefaultFormat(Date date, boolean withTime) {
-        if (date == null)
-            return null;
-        return new SimpleDateFormat(withTime ? defaultFormat : defaultFormatWithoutTime).format(date);
-    }
-
-    public static String getDateStringInDefaultFormat(Date date, Locale locale, boolean withTime) {
-        if (date == null)
-            return null;
-        return new SimpleDateFormat(withTime ? defaultFormat : defaultFormatWithoutTime,locale).format(date);
-    }
-
-    public static String getDateStringInDefaultFormat(Date date, Locale locale) {
-        return getDateStringInDefaultFormat(date, locale, true);
-    }
-
-    public static String getDateStringInDefaultFormat(Date date) {
-        return getDateStringInDefaultFormat(date, true);
-    }
-
 
     public static int getDaysBetweenDates(Date date1, Date date2) {
         DateTime d1 = new LocalDate(date1).toDateTimeAtStartOfDay();
